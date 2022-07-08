@@ -2,9 +2,11 @@ import { createRef, useState, useEffect } from 'react';
 import { useScreenshot, createFileName } from 'use-react-screenshot';
 import './App.css';
 import Measure from './components/Measure';
+import { measures1 } from './data';
+import { replaceAt } from './helper';
 
 function App() {
-  const [measures, setMeasures] = useState([]);
+  const [measures, setMeasures] = useState(measures1);
 
   // set up export functionality
   const ref = createRef(null);
@@ -20,18 +22,18 @@ function App() {
   };
   const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
 
-  // hardcode measures
-  useEffect(() => {
-    const measureData = [];
-    for (let i = 0; i < 16; i++) {
-      measureData.push({id: i, beats: 4})
-    };
-    setMeasures(measureData);
-  }, []);
-  
+  const updateChords = (measureID, newChord, index) => {
+    setMeasures(prevMeasures => {
+      return (measures.map(measure => (
+          measure.id === measureID ?
+          {...measure, chords: replaceAt(measure.chords, index, newChord)} :
+          measure
+      )));
+    });
+  };
+
   const measureElements = measures.map(measure => {
-    console.log(measure);
-    return (<Measure key={measure.id} beats={measure.beats} />)
+    return (<Measure key={measure.id} id={measure.id} beats={measure.beats} chords={measure.chords} updateChords={updateChords}/>);
   });
 
   return (
