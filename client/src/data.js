@@ -1,28 +1,28 @@
 import { nanoid } from '@reduxjs/toolkit'
 
 export const song1 = {
-    title: "my song",
+    title: "title",
     userId: 0,
     measures: [
         {
             id: nanoid(),
             beats: 4,
-            chords: ['a', 'b', 'c', 'd']
+            chords: ['', '', '', '']
         },
         {
             id: nanoid(),
             beats: 4,
-            chords: ['a', 'b', 'c', 'd']
+            chords: ['', '', '', '']
         },
         {
             id: nanoid(),
             beats: 4,
-            chords: ['a', 'b', 'c', 'd']
+            chords: ['', '', '', '']
         },
         {
             id: nanoid(),
             beats: 4,
-            chords: ['a', 'b', 'c', 'd']
+            chords: ['', '', '', '']
         }
     ]
 }
