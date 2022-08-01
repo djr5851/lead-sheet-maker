@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 
 import songRoutes from './routes/songs.js'
+import userRoutes from './routes/users.js'
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
 
 app.use('/songs', songRoutes);
+app.use('/user', userRoutes);
 
 
 const CONNECTION_URL = 'mongodb+srv://admin:pass@db.jph31qv.mongodb.net/?retryWrites=true&w=majority';

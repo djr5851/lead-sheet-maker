@@ -10,6 +10,7 @@ export default function Measure(props) {
             className="chordinput"
             value={props.chords[i]}
             onChange={event => {props.updateChords(props.id, event.target.value, i)}}
+            disabled={props.disabled}
             />)
     }
     return (

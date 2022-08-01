@@ -1,15 +1,13 @@
 import { createSlice, createEntityAdapter, createAsyncThunk, nanoid } from '@reduxjs/toolkit'
-import axios from 'axios';
-
-const SONGS_URL = 'http://localhost:5000/songs';
+import API from '../../api/api';
 
 export const fetchSongs = createAsyncThunk('songs/fetchSongs', async () => {
-    const response = await axios.get(SONGS_URL);
+    const response = await API.get('/songs');
     return response.data;
 });
 
 export const fetchSongById = createAsyncThunk('songs/fetchSongById', async (id) => {
-    const response = await axios.get(`${SONGS_URL}/${id}`);
+    const response = await API.get(`/songs/${id}`);
     return response.data;
 });
 
@@ -36,17 +34,17 @@ export const createSong = createAsyncThunk('songs/createSong', async (song) => {
             chords: ['', '', '', '']
         }
     ];
-    const response = await axios.post(SONGS_URL, song);
+    const response = await API.post('/songs', song);
     return response.data;
 });
 
 export const deleteSong = createAsyncThunk('songs/deleteSong', async (id) => {
-    await axios.delete(SONGS_URL, { data: { id }});
+    await API.delete(`/songs/${id}`);
     return id;
 });
 
 export const updateSong = createAsyncThunk('songs/updateSong', async ({ id, newSong }) => {
-    const response = await axios.put(`${SONGS_URL}/${id}`, newSong);
+    const response = await API.put(`songs/${id}`, newSong);
     return { id: response.data._id, changes: newSong };
 })
 

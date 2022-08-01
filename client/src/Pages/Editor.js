@@ -9,6 +9,7 @@ const Editor = () => {
     const dispatch = useDispatch();
     const song = useSelector(getSelectedSong);
     const error = useSelector(getSongsError);
+    const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
         dispatch(fetchSongById(songId));
@@ -20,7 +21,7 @@ const Editor = () => {
     } else if (song) {
         content = 
             <div>
-                <SongData loadedSong={song} />
+                <SongData loadedSong={song} user={user}/>
             </div>;
     } else {
         content = <p>Loading...</p>

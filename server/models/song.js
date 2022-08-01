@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const songSchema = mongoose.Schema({
     title: String,
     userId: String,
+    creator: String,
     measures: [{
         id: String,
         beats: Number,

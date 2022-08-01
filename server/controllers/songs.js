@@ -19,10 +19,13 @@ export const getSongById = async (req, res) => {
 };
 
 export const createSong = async (req, res) => {
-    const song = req.body;
-    const newSong = new Song(song);
+    if (!req.userId) res.status(403).send();
 
     try {
+        const song = req.body;
+        const newSong = new Song(song);
+        newSong.userId = req.userId;
+        newSong.creator = req.username;    
         await newSong.save();
         res.status(201).json(newSong);
     } catch (error) {
@@ -32,21 +35,32 @@ export const createSong = async (req, res) => {
 
 export const deleteSong = async (req, res) => {
     try {
-        await Song.deleteOne( {_id: req.body.id} )
-        res.status(200).send();
+        const song = await Song.findById(req.params.id);
+        if (req.userId === song.userId) {
+            await song.delete();
+            res.status(200).send();
+        }
+        else {
+            res.status(403).send();
+        }
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
 }
 
 export const updateSong = async (req, res) => {
-    const newSong = req.body;
-    const song = await Song.findById(req.params.id);
-    song.title = newSong.title;
-    song.measures = newSong.measures;
     try {
-        await song.save();
-        res.status(200).send();
+        const song = await Song.findById(req.params.id);
+        if (req.userId === song.userId) {
+            const newSong = req.body;
+            song.title = newSong.title;
+            song.measures = newSong.measures;    
+            await song.save();
+            res.status(200).send();
+        }
+        else {
+            res.status(403).send();
+        }
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
