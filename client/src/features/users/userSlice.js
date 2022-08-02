@@ -11,6 +11,16 @@ export const signIn = createAsyncThunk('user/signIn', async (formData) => {
     return response.data;
 })
 
+export const deleteAccount = createAsyncThunk('user/deleteAccount', async (id) => {
+    const response = await API.delete(`user/delete/${id}`);
+    return response.data;
+})
+
+export const changePassword = createAsyncThunk('user/changePassword', async ({ id, formData }) => {
+    const response = await API.put(`user/changePassword/${id}`, formData);
+    return response.data;
+})
+
 const initialState = { authData: {} }
 
 const userSlice = createSlice({
@@ -19,8 +29,8 @@ const userSlice = createSlice({
     reducers: {
         logout(state) {
             localStorage.clear();
-            window.location.href = "/dashboard";        
             state.authData = {};
+            window.location.href = "/dashboard";        
         }
     },
     extraReducers: {
@@ -33,6 +43,9 @@ const userSlice = createSlice({
             localStorage.setItem('profile', JSON.stringify(action.payload));
             state.authData = action.payload;
             window.location.href = "/dashboard";
+        },
+        [deleteAccount.fulfilled]: (state) => {
+            userSlice.caseReducers.logout(state);
         }
     }
 })

@@ -2,7 +2,7 @@ import Song from "../models/song.js";
 
 export const getSongs = async (req, res) => {
     try {
-        const songs = await Song.find();
+        const songs = await Song.find(req.query);
         res.status(200).json(songs);
     } catch (error) {
         res.status(404).json(error.message);

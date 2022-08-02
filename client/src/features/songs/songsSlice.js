@@ -1,8 +1,9 @@
 import { createSlice, createEntityAdapter, createAsyncThunk, nanoid } from '@reduxjs/toolkit'
 import API from '../../api/api';
+import querystring from 'query-string'
 
-export const fetchSongs = createAsyncThunk('songs/fetchSongs', async () => {
-    const response = await API.get('/songs');
+export const fetchSongs = createAsyncThunk('songs/fetchSongs', async (query) => {
+    const response = await API.get(`/songs?${querystring.stringify(query)}`);
     return response.data;
 });
 
@@ -10,6 +11,12 @@ export const fetchSongById = createAsyncThunk('songs/fetchSongById', async (id) 
     const response = await API.get(`/songs/${id}`);
     return response.data;
 });
+
+export const fetchSongsByUserId = createAsyncThunk('songs/fetchSongsByUserId', async (userId) => {
+    const response = await API.get(`/songs?userId=${userId}`);
+    return response.data;
+});
+
 
 export const createSong = createAsyncThunk('songs/createSong', async (song) => {
     song.measures = [

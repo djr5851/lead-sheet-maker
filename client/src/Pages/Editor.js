@@ -4,12 +4,11 @@ import { useParams } from "react-router-dom"
 import SongData from "../features/songs/SongData"
 import { fetchSongById, getSelectedSong, getSongsError } from "../features/songs/songsSlice";
 
-const Editor = () => {
+const Editor = ({ user }) => {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const song = useSelector(getSelectedSong);
     const error = useSelector(getSongsError);
-    const user = JSON.parse(localStorage.getItem('profile'));
 
     useEffect(() => {
         dispatch(fetchSongById(songId));

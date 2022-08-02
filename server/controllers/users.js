@@ -1,5 +1,6 @@
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import Song from '../models/song.js';
 
 import User from '../models/user.js'
 
@@ -29,5 +30,47 @@ export const signup = async (req, res) => {
         res.status(200).json({ result, token });
     } catch (error) {
         res.status(500).json({ message: "Something went awry" });
+    }
+}
+
+export const deleteAccount = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (req.userId === user._id.toString()) {
+            await Song.deleteMany({ userId: user._id });
+            await user.delete();
+            res.status(200).send();
+        }
+        else {
+            res.status(403).send();
+        }
+    } catch (error) {
+        res.status(409).json({ message: error.message });
+        console.log(error);
+    }
+}
+
+export const changePassword = async (req, res) => {
+
+    try {
+        const { currentPass, newPass, confirmNewPass } = req.body;
+        if (newPass !== confirmNewPass) return res.status(400).json({ message: "Passwords do not match" });
+
+        const user = await User.findById(req.params.id);
+
+        if (req.userId === user._id.toString()) {
+            const isPasswordCorrect = await bcrypt.compare(currentPass, user.password);
+            if (!isPasswordCorrect) return res.status(400).json({ message: "Invalid credentials" });
+            const newHashedPass = await bcrypt.hash(newPass, 12);
+            user.password = newHashedPass;
+            await user.save();
+            res.status(200).send();
+        }
+        else {
+            res.status(403).send();
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(409).json({ message: error.message });
     }
 }
