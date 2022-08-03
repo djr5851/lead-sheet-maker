@@ -1,4 +1,3 @@
-import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Editor from './Pages/Editor';
 import Dashboard from './Pages/Dashboard';
@@ -8,15 +7,15 @@ import NavBar from './Pages/NavBar';
 import Profile from './Pages/Profile'
 
 function App() {
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const signedInUser = JSON.parse(localStorage.getItem('profile'))?.result;
   return (
     <BrowserRouter>
-      <NavBar user={ user } />
+      <NavBar signedInUser={ signedInUser } />
       <Routes>
-        <Route path='/editor/:songId' element={<Editor user={ user } />} />
-        <Route path='/dashboard' element={<Dashboard user={ user } />} />
+        <Route path='/editor/:songId' element={<Editor signedInUser={ signedInUser } />} />
+        <Route path='/dashboard' element={<Dashboard signedInUser={ signedInUser } />} />
         <Route path='/auth' element={<Auth />} />
-        <Route path='/user/:username' element={<Profile signedInUser={ user }/>} />
+        <Route path='/user/:username' element={<Profile signedInUser={ signedInUser }/>} />
         <Route path='*' element={<Error />} />
       </Routes>
     </BrowserRouter>

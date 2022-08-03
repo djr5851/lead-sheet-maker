@@ -1,0 +1,19 @@
+.auth--container {
+    display: flex;
+    justify-content: center;
+}
+
+.auth--form {
+    display: flex;
+    margin: 70px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 500px;
+    width: 500px;
+    background-color: white;
+}
+
+.auth--button {
+    background-color: var(--primary);
+}  

@@ -74,3 +74,15 @@ export const changePassword = async (req, res) => {
         res.status(409).json({ message: error.message });
     }
 }
+
+export const getUserByUsername = async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        const userData = {
+            username: user.username
+        };
+        res.status(200).json(userData);
+    } catch (error) {
+        res.status(404).json(error.message);
+    }
+}

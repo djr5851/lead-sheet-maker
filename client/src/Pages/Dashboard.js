@@ -1,11 +1,15 @@
 import Songs from "../features/songs/Songs";
 import SaveSongForm from "../features/songs/SaveSongForm"
+import './styles/Dashboard.css'
 
-const Dashboard = ({ user }) => {
+
+const Dashboard = ({ signedInUser }) => {
     return (
-        <div>
-            <SaveSongForm user={ user } />
-            <Songs user={ user }/>
+        <div className="dashboard">
+            <SaveSongForm signedInUser={ signedInUser } />
+            <div className="songs">
+                <Songs signedInUser={ signedInUser } isProfile={ false }/>
+            </div>
         </div>
     )
 }

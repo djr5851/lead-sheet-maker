@@ -3,14 +3,15 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { logout } from "../features/users/userSlice";
 import decode from 'jwt-decode'
+import './styles/NavBar.css'
 
-const NavBar = ({ user }) => {
+const NavBar = ({ signedInUser }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
         // log out if jwt token is expired
-        const token = user?.token;
+        const token = signedInUser?.token;
 
         if (token) {
             const decodedToken = decode(token);
@@ -20,15 +21,15 @@ const NavBar = ({ user }) => {
 
     return (
         <nav>
-          <Link to="/dashboard">Dashboard </Link>
-          {user && <Link to={`/user/${user?.result?.username}`}>Profile </Link> }
-          { user ? (
+          <Link className="nav--link" to="/dashboard">Dashboard </Link>
+          {signedInUser && <Link className="nav--link" to={`/user/${signedInUser?.username}`}>Profile </Link> }
+          { signedInUser ? (
             <>
-                <p>Signed in as {user?.result.username}</p>
-                <button onClick={() => dispatch(logout())}>Log Out</button>
+                {/* <p>Signed in as {signedInUser?.username}</p> */}
+                <button className="nav--button" onClick={() => dispatch(logout())}>Log Out</button>
             </>
           ) : (
-            <button onClick={() => navigate("/auth")}>Sign In</button>
+            <button className="nav--button" onClick={() => navigate("/auth")}>Sign In</button>
           ) }
         </nav>
     )

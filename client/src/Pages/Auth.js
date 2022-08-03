@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { signIn, signUp } from "../features/users/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getError, getUserError, signIn, signUp } from "../features/users/userSlice";
+import './styles/Auth.css'
 
 const Auth = () => {
     const [isSignup, setIsSignup] = useState(false);
     const [formData, setFormData] = useState({ username: "", pass: "", confirmPass: ""});
     const dispatch = useDispatch();
+    const error = useSelector(getUserError);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,22 +17,33 @@ const Auth = () => {
     const handleChange = (event) => {
         setFormData(prev => ({ ...prev, [event.target.name]: event.target.value }))
     }
+
+    const toggleSignUp = () => {
+        setIsSignup(prev => !prev)
+    }
+
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="username" onChange={handleChange}/>
-                <label htmlFor="username">Username</label>
-                <input type="password" name="pass" onChange={handleChange}/>
-                <label htmlFor="pass">Password</label>
+        <div className="auth--container">
+            <form className="auth--form" onSubmit={handleSubmit}>
+                <h1>{ isSignup ? "Create Account" : "Sign In" }</h1>
+                <p>{error}</p>
+                <div className="form--item">
+                    <input type="text" name="username" required onChange={handleChange}/>
+                    <label htmlFor="username">Username</label>
+                </div>
+                <div className="form--item">
+                    <input type="password" name="pass" required onChange={handleChange}/>
+                    <label htmlFor="pass">Password</label>
+                </div>
                 { isSignup && (
-                    <>
-                        <input type="password" name="confirmPass" onChange={handleChange}/>
+                    <div className="form--item">
+                        <input type="password" name="confirmPass" required onChange={handleChange}/>
                         <label htmlFor="confirmPass">Confirm Password</label>
-                    </>
+                    </div>
                 )}
-                <button type="submit">{ isSignup ? "Create Account" : "Sign In" }</button>
+                <button className="auth--button" type="submit">{ isSignup ? "Create Account" : "Sign In" }</button>
+                <a onClick={toggleSignUp}>{ isSignup ? "Switch to Sign In" : "Switch to Create Account" }</a>
             </form>
-            <button onClick={() => setIsSignup(prev => !prev)}>{ isSignup ? "Switch to Sign In" : "Switch to Create Account" }</button>
         </div>
     )
 }

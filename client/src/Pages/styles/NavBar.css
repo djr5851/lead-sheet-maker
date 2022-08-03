@@ -1,0 +1,39 @@
+nav {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: rgb(108, 184, 127);
+    height: 60px;
+    padding-right: 15%;
+}
+
+.nav--link {
+    text-align: center;
+    padding-top: 20px;
+    background-color: transparent;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    width: 150px;
+    height: 40px;
+}
+
+.nav--link:hover {
+    color: #fff;
+    background-color: rgb(87, 150, 103);
+    transform: translateY(-2px);
+}
+
+.nav--button {
+    background-color: transparent;
+}
+
+@media (max-width: 45em) {
+    nav {
+        padding-right: 0;
+    }
+}

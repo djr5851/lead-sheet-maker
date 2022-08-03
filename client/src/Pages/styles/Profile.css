@@ -1,0 +1,31 @@
+.profile {
+    display: flex;
+    align-items: center;
+}
+
+.profile--settings {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    height: 900px;
+    margin-right: 30px;
+    background-color: white;
+}
+
+.profile--content {
+    height: 900px;
+    margin-left: 20px;
+}
+
+.profile--settings > p{
+    margin: 10px;
+}
+
+.changePasswordForm {
+    background-color: white;
+}
+
+.deleteButton {
+    background-color: rgb(226, 71, 43);
+}

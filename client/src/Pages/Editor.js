@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom"
 import SongData from "../features/songs/SongData"
 import { fetchSongById, getSelectedSong, getSongsError } from "../features/songs/songsSlice";
+import './styles/Editor.css'
 
-const Editor = ({ user }) => {
+const Editor = ({ signedInUser }) => {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const song = useSelector(getSelectedSong);
@@ -20,7 +21,7 @@ const Editor = ({ user }) => {
     } else if (song) {
         content = 
             <div>
-                <SongData loadedSong={song} user={user}/>
+                <SongData loadedSong={song} signedInUser={signedInUser}/>
             </div>;
     } else {
         content = <p>Loading...</p>

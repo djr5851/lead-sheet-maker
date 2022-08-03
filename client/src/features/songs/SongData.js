@@ -6,10 +6,10 @@ import { useDispatch } from 'react-redux';
 import Toolbar from './Toolbar';
 import { updateSong } from './songsSlice';
 
-const SongData = ({ loadedSong, user }) => {
+const SongData = ({ loadedSong, signedInUser }) => {
     const [song, setSong] = useState(loadedSong);
     const dispatch = useDispatch();
-    const isCreator = Boolean(user?.result?._id === song.userId);
+    const isCreator = Boolean(signedInUser?._id === song.userId);
 
     const onSave = () => {
         dispatch(updateSong({ id: song._id, newSong: song }));

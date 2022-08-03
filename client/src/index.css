@@ -1,3 +1,7 @@
+:root {
+  --primary: rgb(108, 184, 127);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +9,75 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F6F6F6;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*:focus{outline: none}
+
+.form--item{
+  display: flex;
+  position: relative;
+  width: calc(100% - 60px);
+  margin: 10px;
+}
+.form--item input{
+  display: block;
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: solid 1px #ccc;
+  transition: all .3s ease;
+  padding: 0 0 0 15px;
+}
+.form--item input:focus{
+  border-color: var(--primary);
+}
+.form--item label{
+  position: absolute;
+  cursor: text;
+  pointer-events: none;
+  z-index: 2;
+  top: 13px;
+  left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #fff;
+  padding: 0 10px;
+  color: #999;
+  transition: all .3s ease
+}
+.form--item input:focus + label,
+.form--item input:valid + label{
+  font-size: 11px;
+  top: -5px
+}
+.form--item input:focus + label{
+  color: var(--primary);
+}
+
+button {
+  background-color: var(--primary);
+  border: 2px solid white;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  width: 150px;
+  height: 50px;
+  margin: 10px;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+button:active {
+  box-shadow: none;
+  transform: translateY(0);
 }
