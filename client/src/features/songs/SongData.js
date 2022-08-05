@@ -1,13 +1,15 @@
-import Measure from './components/Measure';
+import Measure from './Measure';
 import { replaceAt } from '../../helper';
 import { createRef, useState } from 'react';
 // import { createFileName, useScreenshot } from 'use-react-screenshot';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Toolbar from './Toolbar';
 import { updateSong } from './songsSlice';
+import { getSignedInUser } from '../users/userSlice';
 
-const SongData = ({ loadedSong, signedInUser }) => {
+const SongData = ({ loadedSong }) => {
     const [song, setSong] = useState(loadedSong);
+    const signedInUser = useSelector(getSignedInUser);
     const dispatch = useDispatch();
     const isCreator = Boolean(signedInUser?._id === song.userId);
 
@@ -33,7 +35,14 @@ const SongData = ({ loadedSong, signedInUser }) => {
     };
 
     const measureElements = song.measures.map(measure => {
-        return (<Measure key={measure.id} id={measure.id} beats={measure.beats} chords={measure.chords} updateChords={updateChords} disabled={!isCreator}/>);
+        return (<Measure
+                    key={measure.id}
+                    id={measure.id}
+                    beats={measure.beats}
+                    chords={measure.chords}
+                    updateChords={updateChords}
+                    disabled={!isCreator}
+                />);
     });
 
 

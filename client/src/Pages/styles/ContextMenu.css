@@ -1,0 +1,21 @@
+.contextMenu {
+    position: absolute;
+    display: flex;
+    min-height: 200px;
+    width: 200px;
+    background-color: white;
+    border: 1px solid rgb(212, 212, 212);
+    box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+    z-index: 3;
+}
+
+.context--button {
+    width: 200px;
+    margin: 0;
+    border: 0;
+    background-color: white;
+    color: black;
+    font-weight: 300;
+    text-align: left;
+    padding-left: 25px;
+}

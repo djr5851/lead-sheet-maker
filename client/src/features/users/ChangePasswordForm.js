@@ -1,11 +1,13 @@
 import { useState } from "react"
-import { useDispatch } from "react-redux";
-import { changePassword } from "./userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword, getSignedInUser } from "./userSlice";
 
-const ChangePasswordForm = ({ signedInUser }) => {
+const ChangePasswordForm = () => {
     const [currentPass, setCurrentPass] = useState('');
     const [newPass, setNewPass] = useState('');
     const [confirmNewPass, setConfirmNewPass] = useState('');
+    const signedInUser = useSelector(getSignedInUser);
+
 
     const dispatch = useDispatch();
 

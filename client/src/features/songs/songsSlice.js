@@ -12,11 +12,10 @@ export const fetchSongById = createAsyncThunk('songs/fetchSongById', async (id) 
     return response.data;
 });
 
-export const fetchSongsByUserId = createAsyncThunk('songs/fetchSongsByUserId', async (userId) => {
-    const response = await API.get(`/songs?userId=${userId}`);
+export const searchSongs = createAsyncThunk('songs/fetchSongsByTitle', async (search) => {
+    const response = await API.get(`/songs/search?searchTerm=${search}`);
     return response.data;
 });
-
 
 export const createSong = createAsyncThunk('songs/createSong', async (song) => {
     song.measures = [
@@ -91,6 +90,19 @@ const songsSlice = createSlice({
             state.loading = false;
             state.error = action.error.message;
             state.selectedSong = null;
+        },
+        [searchSongs.pending](state) {
+            state.error = null;
+            state.loading = true
+        },
+        [searchSongs.fulfilled](state, { payload }) {
+            state.error = null;
+            state.loading = false
+            songsAdapter.setAll(state, payload)
+        },
+        [searchSongs.rejected](state, action) {
+            state.loading = false;
+            state.error = action.error.message;
         },
         [createSong.pending](state) {
             state.error = null;

@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getSignedInUser } from "../users/userSlice";
 import { createSong } from "./songsSlice";
 
-const SaveSongForm = ({ signedInUser }) => {
+const SaveSongForm = () => {
 
     const [title, setTitle] = useState('My Song');
     const dispatch = useDispatch();
+    const signedInUser = useSelector(getSignedInUser);
 
     const onSavePostClicked = () => {
         if (signedInUser) {
@@ -15,12 +17,11 @@ const SaveSongForm = ({ signedInUser }) => {
 
     return (
         <div>
-            { signedInUser && (
-                <>
-                    <input type="text" value={title} onChange={(event) => setTitle(event.target.value)}/>
-                    <button type="button" onClick={onSavePostClicked}>Save Song</button>
-                </>
-            ) }
+            <div className="form--item">
+                <input type="text" required value={title} onChange={(event) => setTitle(event.target.value)}/>
+                <label >Song Title</label>
+                <button type="button" className="form--inline--button" onClick={onSavePostClicked}>Create Song</button>
+            </div>
         </div>
     )
 }

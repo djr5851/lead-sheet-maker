@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getError, getUserError, signIn, signUp } from "../features/users/userSlice";
+import { getUserError, signIn, signUp } from "../features/users/userSlice";
 import './styles/Auth.css'
 
 const Auth = () => {
@@ -42,7 +42,7 @@ const Auth = () => {
                     </div>
                 )}
                 <button className="auth--button" type="submit">{ isSignup ? "Create Account" : "Sign In" }</button>
-                <a onClick={toggleSignUp}>{ isSignup ? "Switch to Sign In" : "Switch to Create Account" }</a>
+                <p onClick={toggleSignUp}>{ isSignup ? "Switch to Sign In" : "Switch to Create Account" }</p>
             </form>
         </div>
     )

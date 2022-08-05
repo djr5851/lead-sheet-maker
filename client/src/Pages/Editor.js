@@ -5,7 +5,7 @@ import SongData from "../features/songs/SongData"
 import { fetchSongById, getSelectedSong, getSongsError } from "../features/songs/songsSlice";
 import './styles/Editor.css'
 
-const Editor = ({ signedInUser }) => {
+const Editor = () => {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const song = useSelector(getSelectedSong);
@@ -13,7 +13,7 @@ const Editor = ({ signedInUser }) => {
 
     useEffect(() => {
         dispatch(fetchSongById(songId));
-    }, []);
+    }, [songId, dispatch]);
 
     let content;
     if (error) {
@@ -21,7 +21,7 @@ const Editor = ({ signedInUser }) => {
     } else if (song) {
         content = 
             <div>
-                <SongData loadedSong={song} signedInUser={signedInUser}/>
+                <SongData loadedSong={song} />
             </div>;
     } else {
         content = <p>Loading...</p>

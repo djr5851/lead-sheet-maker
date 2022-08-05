@@ -28,6 +28,7 @@ export const getUserByUsername = createAsyncThunk('user/getUserByUsername', asyn
 
 const initialState = {
     authData: {},
+    signedInUser: JSON.parse(localStorage.getItem('profile'))?.result,
     selectedUser: null,
     error: null,
     loading: false
@@ -99,6 +100,7 @@ export const { logout } = userSlice.actions;
 
 export const getUserError = (state) => state.user.error;
 export const getUserLoading = (state) => state.user.loading;
+export const getSignedInUser = (state) => state.user.signedInUser;
 export const getSelectedUser = (state) => state.user.selectedUser;
 
 export default userSlice.reducer

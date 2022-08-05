@@ -1,14 +1,16 @@
 import Songs from "../features/songs/Songs";
-import SaveSongForm from "../features/songs/SaveSongForm"
 import './styles/Dashboard.css'
+import SearchSongForm from "../features/songs/SearchSongForm";
+import { useState } from "react";
 
 
-const Dashboard = ({ signedInUser }) => {
+const Dashboard = ({ setContextMenu }) => {
+    const [query, setQuery] = useState({});
     return (
         <div className="dashboard">
-            <SaveSongForm signedInUser={ signedInUser } />
+            <SearchSongForm setQuery={ setQuery } />
             <div className="songs">
-                <Songs signedInUser={ signedInUser } isProfile={ false }/>
+                <Songs query={query} setContextMenu={ setContextMenu } isProfile={ false }/>
             </div>
         </div>
     )

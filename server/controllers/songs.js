@@ -9,6 +9,20 @@ export const getSongs = async (req, res) => {
     }
 };
 
+export const searchSongs = async (req, res) => {
+    try {
+        if (req.query.searchTerm === '') {
+            const songs = await Song.find();
+            return res.status(200).json(songs);
+        }
+        const songs = await Song.find({title: { $regex: req.query.searchTerm, $options: 'i' }});
+        res.status(200).json(songs);
+    } catch (error) {
+        res.status(404).json(error.message);
+    }
+};
+
+
 export const getSongById = async (req, res) => {
     try {
         const song = await Song.findById(req.params.id);
