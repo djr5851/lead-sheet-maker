@@ -69,6 +69,8 @@ export const updateSong = async (req, res) => {
             const newSong = req.body;
             song.title = newSong.title;
             song.measures = newSong.measures;    
+            song.artist = newSong.artist;    
+            song.time = newSong.time;    
             await song.save();
             res.status(200).send();
         }

@@ -7,7 +7,7 @@ import Toolbar from './Toolbar';
 import { updateSong } from './songsSlice';
 import { getSignedInUser } from '../users/userSlice';
 
-const SongData = ({ loadedSong }) => {
+const SongData = ({ loadedSong, setContextMenu }) => {
     const [song, setSong] = useState(loadedSong);
     const signedInUser = useSelector(getSignedInUser);
     const dispatch = useDispatch();
@@ -33,15 +33,19 @@ const SongData = ({ loadedSong }) => {
     const updateTitle = (newTitle) => {
         setSong(prevSong => ({...prevSong, title: newTitle}));
     };
+    
+    const updateArtist = (newArtist) => {
+        setSong(prevSong => ({...prevSong, artist: newArtist}));
+    };
 
     const measureElements = song.measures.map(measure => {
         return (<Measure
-                    key={measure.id}
-                    id={measure.id}
-                    beats={measure.beats}
-                    chords={measure.chords}
-                    updateChords={updateChords}
-                    disabled={!isCreator}
+                    key={ measure.id }
+                    id={ measure.id }
+                    time={ song.time } 
+                    chords={ measure.chords }
+                    updateChords={ updateChords }
+                    disabled={ !isCreator }
                 />);
     });
 
@@ -64,11 +68,19 @@ const SongData = ({ loadedSong }) => {
  
     return (
         <div>
-            { isCreator && <Toolbar onSave={onSave} /> }
+            { isCreator && <Toolbar onSave={onSave} setSong={ setSong } setContextMenu={ setContextMenu } /> }
             <div ref={ref} className="song">
                 <input type="text" className='song--title' value={song.title} disabled={!isCreator} onChange={(event) => updateTitle(event.target.value)}/>
-                <div className='song--measures'>
-                    {measureElements}
+                <input type="text" className='song--artist' value={song.artist} onChange={(event) => updateArtist(event.target.value)}/>
+                <div className='song--body'>
+                    <div className='song--time'>
+                        <h2>{song.time}</h2>
+                        <h2>—</h2>
+                        <h2>4</h2>
+                    </div>
+                    <div key='measures' className='song--measures'>
+                        {measureElements}
+                    </div>
                 </div>
             </div>
         </div>

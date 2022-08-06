@@ -4,6 +4,8 @@ const songSchema = mongoose.Schema({
     title: String,
     userId: String,
     creator: String,
+    time: Number,
+    artist: String,
     measures: [{
         id: String,
         beats: Number,

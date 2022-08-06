@@ -21,25 +21,23 @@ export const createSong = createAsyncThunk('songs/createSong', async (song) => {
     song.measures = [
         {
             id: nanoid(),
-            beats: 4,
             chords: ['', '', '', '']
         },
         {
             id: nanoid(),
-            beats: 4,
             chords: ['', '', '', '']
         },
         {
             id: nanoid(),
-            beats: 4,
             chords: ['', '', '', '']
         },
         {
             id: nanoid(),
-            beats: 4,
             chords: ['', '', '', '']
         }
     ];
+    song.artist = 'artist';
+    song.time = 4;
     const response = await API.post('/songs', song);
     return response.data;
 });
@@ -116,6 +114,7 @@ const songsSlice = createSlice({
         [createSong.rejected](state, action) {
             state.loading = false;
             state.error = action.error.message;
+            console.log(action)
         },
         [deleteSong.pending](state) {
             state.error = null;

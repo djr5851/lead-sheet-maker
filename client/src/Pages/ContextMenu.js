@@ -6,13 +6,13 @@ const ContextMenu = ({ data, hide }) => {
 
     useEffect(() => {
         const handleClick= (event) => {
-                hide();
+            if(data.visible) hide();
         }
         document.addEventListener("mouseup", handleClick);
         return () => {
             document.removeEventListener("mouseup", handleClick);
         };
-    }, [wrapperRef, hide]);
+    }, [wrapperRef, hide, data.visible]);
   
     return (
         <>
@@ -21,7 +21,7 @@ const ContextMenu = ({ data, hide }) => {
                 top: data.position.y,
                 display: data.visible ? 'inherit' : 'none' }}
             >
-                {data.content}
+                {data?.content}
             </div>
         </>
     )

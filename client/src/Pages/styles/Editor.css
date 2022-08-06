@@ -1,36 +1,129 @@
-.measure[data-beats="4"] {
+.editor {
+  display: flex;
+  justify-content: center;
+}
+
+.song {
+  background-color: white;
+  width: 1200px;
+}
+
+.song--measures {
+  display: grid;
+  margin-left: 10px;
+  margin-right: 40px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.song--title {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border: none;
+  font-size: 6em;
+  margin-bottom: 100px;
+  background: transparent;
+}
+
+.song--artist {
+  position: absolute;
+  margin-left: 847px;
+  margin-top: -188px;
+  border: none;
+  text-align: center;
+  background: transparent;
+  font-size: 0.9rem;
+  width: 350px;
+}
+
+.song--body {
+  display: flex;
+}
+
+.song--time {
+  margin-left: 10px;
+  padding-top: 14px;
+}
+
+.song--time > h2 {
+  margin-block: -15px;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.measure {
     display: flex;
     justify-content: space-around;
     align-items: center;
     height: 100px;
-    width: 100%;
     border-inline: solid;
-    margin: 10px;
-  }
-  
-  .chordinput {
-    width: 100%;
-    height: 100%;
-    text-align: center;
+    margin-bottom: 40px;
+    /* width: 270px; */
+}
+
+.chord--display {
+  pointer-events: none;
+  position: absolute;
+  display: flex;
+  font-size: 6rem;
+  height: 100px;
+  width: 64px;
+  /* background-color: rgba(255, 192, 203, 0.459); */
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.chord--input {
+    width: 64px;
+    height: 100px;
+    text-align: left;
     border: none;
-    font-size: 6em;
-  }
-  
-  .chordinput:hover {
-    background-color: #dafffc;
-    border: none;
-  }
-  
-  .song--measures {
-    display: grid;
-    margin: 100px;
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  .song--title {
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    border: none;
-    font-size: 6em;
-  }
+    font-size: 0.01em;
+    color: transparent;
+    /* opacity: 0; */
+    resize: horizontal;
+    overflow: visible;
+}
+
+.chord--input[data-time='4'] { width: 64px; }
+.chord--input[data-time='3'] { width: 86px; }
+.chord--display[data-time='4'] { width: 64px; }
+.chord--display[data-time='3'] { width: 86px; }
+
+.chord--input::selection {
+  background-color: transparent;
+}
+
+.chord--input:hover {
+  background-color: #eeeeee;
+}
+
+.chord--input:focus {
+  background-color: #dafffc;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  margin-top: 50px;
+  height: 60px;
+  width: 1200px;
+}
+
+.toolbar--icon {
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px;
+  max-width: 48px;
+  max-height: 48px;
+  background-color: white;
+  margin-right: 20px;
+  border-radius: 10%;
+}
+
+.toolbar--icon:hover {
+  transform: translateY(-2px);
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+}

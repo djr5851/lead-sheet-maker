@@ -28,7 +28,7 @@ function App() {
   const [contextMenu, setContextMenu] = useState({ 
     visible: false,
     position: { x: 0, y: 0},
-    content: {}
+    content: null
   });
 
   const hide = () => {
@@ -40,7 +40,7 @@ function App() {
       <NavBar setContextMenu={ setContextMenu }/>
       <ContextMenu data={ contextMenu } hide={ hide } />
       <Routes>
-        <Route path='/editor/:songId' element={<Editor />} />
+        <Route path='/editor/:songId' element={<Editor setContextMenu={ setContextMenu } />} />
         <Route path='/dashboard' element={<Dashboard setContextMenu={ setContextMenu }/>} />
         <Route path='/auth' element={<Auth />} />
         <Route path='/user/:username' element={<Profile setContextMenu={ setContextMenu }/>} />
