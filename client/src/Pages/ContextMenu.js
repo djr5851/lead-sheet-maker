@@ -1,27 +1,29 @@
 import { useEffect, useRef } from 'react';
+import { useReusableUI } from '../ReusableUIContext';
 
 
-const ContextMenu = ({ data, hide }) => {
+const ContextMenu = () => {
     const wrapperRef = useRef(null);
+    const { contextMenu, hideContextMenu } = useReusableUI();
 
     useEffect(() => {
         const handleClick= (event) => {
-            if(data.visible) hide();
+            if(contextMenu.visible) hideContextMenu();
         }
         document.addEventListener("mouseup", handleClick);
         return () => {
             document.removeEventListener("mouseup", handleClick);
         };
-    }, [wrapperRef, hide, data.visible]);
+    }, [wrapperRef, hideContextMenu, contextMenu.visible]);
   
     return (
         <>
             <div className="contextMenu" ref={wrapperRef} style={{
-                left: data.position.x,
-                top: data.position.y,
-                display: data.visible ? 'inherit' : 'none' }}
+                left: contextMenu.position.x,
+                top: contextMenu.position.y,
+                display: contextMenu.visible ? 'inherit' : 'none' }}
             >
-                {data?.content}
+                {contextMenu?.content}
             </div>
         </>
     )

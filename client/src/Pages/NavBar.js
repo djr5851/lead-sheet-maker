@@ -2,12 +2,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom"
 import { fetchSongs } from "../features/songs/songsSlice";
 import { getSignedInUser, logout } from "../features/users/userSlice";
+import { useReusableUI } from "../ReusableUIContext";
 import './styles/NavBar.css'
 
-const NavBar = ({ setContextMenu }) => {
+const NavBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const signedInUser = useSelector(getSignedInUser);
+    const { setContextMenu } = useReusableUI();
 
     return (
       <>

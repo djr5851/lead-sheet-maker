@@ -5,7 +5,7 @@ import SongData from "../features/songs/SongData"
 import { fetchSongById, getSelectedSong, getSongsError } from "../features/songs/songsSlice";
 import './styles/Editor.css'
 
-const Editor = ({ setContextMenu }) => {
+const Editor = () => {
     const { songId } = useParams();
     const dispatch = useDispatch();
     const song = useSelector(getSelectedSong);
@@ -21,7 +21,7 @@ const Editor = ({ setContextMenu }) => {
     } else if (song) {
         content = 
             <div>
-                <SongData setContextMenu={ setContextMenu } loadedSong={ song } />
+                <SongData loadedSong={ song } />
             </div>;
     } else {
         content = <p>Loading...</p>

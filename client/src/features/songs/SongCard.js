@@ -1,12 +1,14 @@
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { useReusableUI } from '../../ReusableUIContext';
 import { getSignedInUser } from '../users/userSlice';
 
-const SongCard = ({ song, onOpen, onDelete, setContextMenu }) => {
+const SongCard = ({ song, onOpen, onDelete }) => {
     const signedInUser = useSelector(getSignedInUser);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { setContextMenu } = useReusableUI();
 
     return (
         <div className='songCard'>

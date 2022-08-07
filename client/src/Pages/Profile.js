@@ -7,7 +7,7 @@ import SaveSongForm from '../features/songs/SaveSongForm';
 import { deleteAccount, getSelectedUser, getSignedInUser, getUserByUsername, getUserLoading } from '../features/users/userSlice';
 import './styles/Profile.css'
 
-const Profile = ({ setContextMenu }) => {
+const Profile = () => {
     const dispatch = useDispatch();
     const { username } = useParams();
     const user = useSelector(getSelectedUser);
@@ -37,7 +37,7 @@ const Profile = ({ setContextMenu }) => {
                         <SaveSongForm />
 
                         <div className='songs'>
-                            <Songs signedInUser={ signedInUser } query={{ creator: username }} isProfile={ true } setContextMenu={ setContextMenu } />
+                            <Songs signedInUser={ signedInUser } query={{ creator: username }} isProfile={ true } />
                         </div>
                     </div>
                 </div>

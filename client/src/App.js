@@ -5,11 +5,13 @@ import Error from './Pages/Error';
 import Auth from './Pages/Auth';
 import NavBar from './Pages/NavBar';
 import Profile from './Pages/Profile'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import decode from 'jwt-decode'
 import { useDispatch } from 'react-redux';
 import { logout } from './features/users/userSlice';
 import ContextMenu from './Pages/ContextMenu';
+import { ReusableUIProvider } from './ReusableUIContext';
+import Alert from './Pages/Alert';
 
 function App() {
   const signedInUser = JSON.parse(localStorage.getItem('profile'))?.result; 
@@ -25,27 +27,20 @@ function App() {
     }
   })
 
-  const [contextMenu, setContextMenu] = useState({ 
-    visible: false,
-    position: { x: 0, y: 0},
-    content: null
-  });
-
-  const hide = () => {
-    setContextMenu(prev => ({ ...prev, visible: false }));
-  }
-
   return (
     <BrowserRouter>
-      <NavBar setContextMenu={ setContextMenu }/>
-      <ContextMenu data={ contextMenu } hide={ hide } />
-      <Routes>
-        <Route path='/editor/:songId' element={<Editor setContextMenu={ setContextMenu } />} />
-        <Route path='/dashboard' element={<Dashboard setContextMenu={ setContextMenu }/>} />
-        <Route path='/auth' element={<Auth />} />
-        <Route path='/user/:username' element={<Profile setContextMenu={ setContextMenu }/>} />
-        <Route path='*' element={<Error />} />
-      </Routes>
+      <ReusableUIProvider>
+        <Alert />
+        <NavBar />
+        <ContextMenu />
+        <Routes>
+          <Route path='/editor/:songId' element={<Editor />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/user/:username' element={<Profile />} />
+          <Route path='*' element={<Error />} />
+        </Routes>
+      </ReusableUIProvider>
     </BrowserRouter>
   )
 }

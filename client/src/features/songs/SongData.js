@@ -6,15 +6,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import Toolbar from './Toolbar';
 import { updateSong } from './songsSlice';
 import { getSignedInUser } from '../users/userSlice';
+import { useReusableUI } from '../../ReusableUIContext';
 
-const SongData = ({ loadedSong, setContextMenu }) => {
+const SongData = ({ loadedSong }) => {
     const [song, setSong] = useState(loadedSong);
     const signedInUser = useSelector(getSignedInUser);
     const dispatch = useDispatch();
     const isCreator = Boolean(signedInUser?._id === song.userId);
+    const { setAlert } = useReusableUI();
 
-    const onSave = () => {
-        dispatch(updateSong({ id: song._id, newSong: song }));
+    const onSave = async () => {
+        try {
+            await dispatch(updateSong({ id: song._id, newSong: song })).unwrap();
+            setAlert('Song Saved');
+        } catch (error) {
+            setAlert(error.message);
+        }
     }
 
     const updateChords = (measureID, newChord, index) => {
@@ -38,7 +45,7 @@ const SongData = ({ loadedSong, setContextMenu }) => {
         setSong(prevSong => ({...prevSong, artist: newArtist}));
     };
 
-    const measureElements = song.measures.map(measure => {
+    const measureElements = song.measures.map((measure, i) => {
         return (<Measure
                     key={ measure.id }
                     id={ measure.id }
@@ -46,6 +53,7 @@ const SongData = ({ loadedSong, setContextMenu }) => {
                     chords={ measure.chords }
                     updateChords={ updateChords }
                     disabled={ !isCreator }
+                    index={ i }
                 />);
     });
 
@@ -68,7 +76,7 @@ const SongData = ({ loadedSong, setContextMenu }) => {
  
     return (
         <div>
-            { isCreator && <Toolbar onSave={onSave} setSong={ setSong } setContextMenu={ setContextMenu } /> }
+            { isCreator && <Toolbar onSave={onSave} setSong={ setSong } /> }
             <div ref={ref} className="song">
                 <input type="text" className='song--title' value={song.title} disabled={!isCreator} onChange={(event) => updateTitle(event.target.value)}/>
                 <input type="text" className='song--artist' value={song.artist} onChange={(event) => updateArtist(event.target.value)}/>
@@ -78,7 +86,7 @@ const SongData = ({ loadedSong, setContextMenu }) => {
                         <h2>—</h2>
                         <h2>4</h2>
                     </div>
-                    <div key='measures' className='song--measures'>
+                    <div className='song--measures'>
                         {measureElements}
                     </div>
                 </div>

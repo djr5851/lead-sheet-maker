@@ -36,8 +36,9 @@ export default function Measure(props) {
             </div>)
     }
     return (
-        <div className="measure" ref={ ref }>
+        <div className="measure" ref={ ref } data-index={ props.index }>
             {chordInputs}
+            <div className='measure--selected' data-visible={ false }></div>
         </div>
     )
 }

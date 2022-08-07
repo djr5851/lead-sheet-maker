@@ -11,7 +11,9 @@ const Auth = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        isSignup ? dispatch(signUp(formData)) : dispatch(signIn(formData));
+        isSignup ? 
+        dispatch(signUp(formData)) :
+         dispatch(signIn(formData));
     };
 
     const handleChange = (event) => {

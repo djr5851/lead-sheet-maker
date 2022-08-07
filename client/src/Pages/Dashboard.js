@@ -4,13 +4,13 @@ import SearchSongForm from "../features/songs/SearchSongForm";
 import { useState } from "react";
 
 
-const Dashboard = ({ setContextMenu }) => {
+const Dashboard = () => {
     const [query, setQuery] = useState({});
     return (
         <div className="dashboard">
             <SearchSongForm setQuery={ setQuery } />
             <div className="songs">
-                <Songs query={query} setContextMenu={ setContextMenu } isProfile={ false }/>
+                <Songs query={query} isProfile={ false }/>
             </div>
         </div>
     )
