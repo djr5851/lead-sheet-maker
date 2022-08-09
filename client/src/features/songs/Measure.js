@@ -28,10 +28,11 @@ export default function Measure(props) {
                 className="chord--input"
                 value={props.chords[i]}
                 onChange={event => {props.updateChords(props.id, event.target.value, i)}}
-                disabled={props.disabled}
+                // disabled={props.disabled}
                 spellCheck='false'
                 onClick={(event) => event.target.select()}
                 data-time={props.time}
+                id={`measure${props.index}chord${i}`}
                 />
             </div>)
     }

@@ -34,10 +34,27 @@ export const createSong = createAsyncThunk('songs/createSong', async (song) => {
         {
             id: nanoid(),
             chords: ['', '', '', '']
-        }
+        },
+        {
+            id: nanoid(),
+            chords: ['', '', '', '']
+        },
+        {
+            id: nanoid(),
+            chords: ['', '', '', '']
+        },
+        {
+            id: nanoid(),
+            chords: ['', '', '', '']
+        },
+        {
+            id: nanoid(),
+            chords: ['', '', '', '']
+        },
     ];
     song.artist = 'artist';
     song.time = 4;
+    song.bpm = 120;
     const response = await API.post('/songs', song);
     return response.data;
 });

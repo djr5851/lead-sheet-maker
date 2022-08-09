@@ -2,17 +2,17 @@ import Measure from './Measure';
 import { replaceAt } from '../../helper';
 import { createRef, useState } from 'react';
 // import { createFileName, useScreenshot } from 'use-react-screenshot';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Toolbar from './Toolbar';
 import { updateSong } from './songsSlice';
-import { getSignedInUser } from '../users/userSlice';
+// import { getSignedInUser } from '../users/userSlice';
 import { useReusableUI } from '../../ReusableUIContext';
 
 const SongData = ({ loadedSong }) => {
     const [song, setSong] = useState(loadedSong);
-    const signedInUser = useSelector(getSignedInUser);
+    // const signedInUser = useSelector(getSignedInUser);
     const dispatch = useDispatch();
-    const isCreator = Boolean(signedInUser?._id === song.userId);
+    // const isCreator = Boolean(signedInUser?._id === song.userId);
     const { setAlert } = useReusableUI();
 
     const onSave = async () => {
@@ -25,6 +25,9 @@ const SongData = ({ loadedSong }) => {
     }
 
     const updateChords = (measureID, newChord, index) => {
+        newChord = newChord.replace("b", "♭");
+        newChord = newChord.replace("#", "♯");
+        newChord = newChord.replace("maj", "Δ");
         setSong(prevSong => {
             return ({
             ...prevSong,
@@ -45,6 +48,10 @@ const SongData = ({ loadedSong }) => {
         setSong(prevSong => ({...prevSong, artist: newArtist}));
     };
 
+    const updateBPM = (newBPM) => {
+        setSong(prevSong => ({...prevSong, bpm: newBPM.slice(4)}));
+    };
+
     const measureElements = song.measures.map((measure, i) => {
         return (<Measure
                     key={ measure.id }
@@ -52,7 +59,7 @@ const SongData = ({ loadedSong }) => {
                     time={ song.time } 
                     chords={ measure.chords }
                     updateChords={ updateChords }
-                    disabled={ !isCreator }
+                    // disabled={ !isCreator }
                     index={ i }
                 />);
     });
@@ -76,10 +83,11 @@ const SongData = ({ loadedSong }) => {
  
     return (
         <div>
-            { isCreator && <Toolbar onSave={onSave} setSong={ setSong } /> }
+            <Toolbar onSave={onSave} song={ song } setSong={ setSong } />
             <div ref={ref} className="song">
-                <input type="text" className='song--title' value={song.title} disabled={!isCreator} onChange={(event) => updateTitle(event.target.value)}/>
+                <input type="text" className='song--title' value={song.title} onChange={(event) => updateTitle(event.target.value)}/>
                 <input type="text" className='song--artist' value={song.artist} onChange={(event) => updateArtist(event.target.value)}/>
+                <input type="text" className='song--bpm' value={`♩ = ${song.bpm}`} onChange={(event) => updateBPM(event.target.value)}/>
                 <div className='song--body'>
                     <div className='song--time'>
                         <h2>{song.time}</h2>

@@ -1,5 +1,7 @@
+import decode from "jwt-decode";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import { fetchSongs } from "../features/songs/songsSlice";
 import { getSignedInUser, logout } from "../features/users/userSlice";
 import { useReusableUI } from "../ReusableUIContext";
@@ -8,9 +10,19 @@ import './styles/NavBar.css'
 const NavBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const location = useLocation();
     const signedInUser = useSelector(getSignedInUser);
     const { setContextMenu } = useReusableUI();
-
+  
+    useEffect(() => {
+      const token = signedInUser?.token;
+  
+      if (token) {
+          const decodedToken = decode(token);
+          if(decodedToken.exp * 1000 < new Date().getTime()) dispatch(logout());
+      }
+    }, [location, signedInUser, dispatch])
+  
     return (
       <>
         <nav>
@@ -33,6 +45,7 @@ const NavBar = () => {
                       position: { x: event.clientX, y: event.clientY },
                       content:
                         <div>
+                          <button className="context--button" onClick={() => navigate(`/user/${signedInUser?.username}`)}>View Profile</button>
                           <button className="context--button" onClick={() => dispatch(logout())}>Log Out</button>
                         </div>
                     }) }>
