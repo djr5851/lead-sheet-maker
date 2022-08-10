@@ -25,7 +25,7 @@ const Profile = () => {
         content = 
             <>
                 <div className='profile'>
-                    { signedInUser?.username === user.username && <div className='profile--settings'>
+                    { signedInUser && signedInUser?.username === user.username && <div className='profile--settings'>
                         <h1>Settings</h1>
                         <p>Change Password</p>
                         { signedInUser && <ChangePasswordForm user={ signedInUser }  /> }

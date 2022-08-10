@@ -19,6 +19,7 @@ function App() {
         <ContextMenu />
         <Routes>
           <Route path='/editor/:songId' element={<Editor />} />
+          <Route path='/' element={<Dashboard />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/auth' element={<Auth />} />
           <Route path='/user/:username' element={<Profile />} />
