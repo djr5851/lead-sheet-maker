@@ -51,9 +51,9 @@ nav {
     border-radius: 50%;
     border: 2px solid white;
     color: white;
-    line-height:20px;
+    line-height:25px;
     text-align:center;
-    font-size: 30px;
+    font-size: 25px;
     background-color: rgb(202, 56, 80);
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 

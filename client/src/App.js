@@ -22,7 +22,7 @@ function App() {
           <Route path='/' element={<Dashboard />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/auth' element={<Auth />} />
-          <Route path='/user/:username' element={<Profile />} />
+          <Route path='/profile/:username' element={<Profile />} />
           <Route path='*' element={<Error />} />
         </Routes>
       </ReusableUIProvider>

@@ -34,7 +34,7 @@ const NavBar = () => {
                 <Link className="nav--link" to="/dashboard" onClick={ () => dispatch(fetchSongs()) }>Dashboard </Link>
               </div>
               <div className="nav--item">
-                {signedInUser && <Link className="nav--link" to={`/user/${signedInUser?.username}`}>Profile </Link> }
+                {signedInUser && <Link className="nav--link" to={`/profile/${signedInUser?.username}`}>Profile </Link> }
               </div>
               { signedInUser ? (
                 <>
@@ -45,7 +45,7 @@ const NavBar = () => {
                       position: { x: event.clientX, y: event.clientY },
                       content:
                         <div>
-                          <button className="context--button" onClick={() => navigate(`/user/${signedInUser?.username}`)}>View Profile</button>
+                          <button className="context--button" onClick={() => navigate(`/profile/${signedInUser?.username}`)}>View Profile</button>
                           <button className="context--button" onClick={() => dispatch(logout())}>Log Out</button>
                         </div>
                     }) }>

@@ -26,7 +26,7 @@ const SongCard = ({ song, onOpen, onDelete }) => {
             </div>
             <div className='songCard--creator'>
                 <p>Created by: </p>
-                <Link to={`/user/${song.creator}`}>{ song.creator }</Link>
+                <Link to={`/profile/${song.creator}`}>{ song.creator }</Link>
             </div>
             <button onClick={() => onOpen(song._id, navigate)}>Open Song</button>
         </div>
